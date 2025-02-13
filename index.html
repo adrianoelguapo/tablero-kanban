@@ -14,7 +14,7 @@
 
         <div class = "login-container">
 
-            <div class = "login-form">
+            <div class = "login-form" action = "login.php" method = "post">
 
                 <div class = "login-details">
     
@@ -23,13 +23,14 @@
     
                 </div>
     
-                <form>
+                <form method = "post" action = "login.php">
     
-                    <label for = "login-email">Email</label>
-                    <input type = "text" id = "login-email">
-    
+                    <label for = "login-email">Username</label>
+                    <input type = "text" id = "login-email" name = "username">
+                    
                     <label for = "login-pass">Password</label>
-                    <input type = "text" id = "login-pass">
+                    <input type = "password" id = "login-pass" name = "password">
+                    
 
                     <span>
 
