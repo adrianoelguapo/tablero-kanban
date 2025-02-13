@@ -122,24 +122,26 @@ body{
     font-weight: bold;
 }
 
-.success-message {
-    color: green;
-    text-align: center;
-    font-weight: bold;
-}
-
-
 /* --- Estilos para la página principal --- */
 .home-container{
     display: flex;
+    flex-direction: column;
     gap: 3%;
     padding: 3%;
     width: 90%;
-    margin-top: -15%;
+    align-items: center;
+    margin-top: -12.5%;
+}
+
+.kanban-container{
+    margin-top: 2%;
+    display: flex;
+    width: 100%;
+    gap: 3%;
 }
 
 .kanban-column{
-    width: 50%;
+    width: 100%;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     padding: 2%;
@@ -182,4 +184,27 @@ body{
     opacity: 1 !important;
     transform: scale(1.05);
     z-index: 1000;
+}
+
+#add-task {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 5% 7.5%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.3);
+    border: 0.1em solid rgba(255, 255, 255, 0.2);
+    width: 20%;
+    min-width: 150px;
+    text-align: center;
+}
+
+#add-task:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
 }

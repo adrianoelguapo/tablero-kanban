@@ -46,7 +46,7 @@
 
         <div class = "login-container">
 
-            <div class = "login-form" action = "login.php" method = "post">
+            <div class = "login-form">
 
                 <div class = "login-details">
     
@@ -55,7 +55,7 @@
     
                 </div>
     
-                <form method = "post" action = "login.php">
+                <form method = "post">
     
                     <label for = "login-email">Username</label>
                     <input type = "text" id = "login-email" name = "username">
