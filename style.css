@@ -52,6 +52,12 @@ body{
     color: rgba(255, 255, 255, 0.8);
 }
 
+.login-desc a{
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+}
+
 .login-form form{
     display: flex;
     flex-direction: column;
@@ -86,7 +92,8 @@ body{
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.login-form #login-submit{
+.login-form #login-submit,
+.login-form #sign-up-submit{
     width: 60%;
     padding: 3%;
     border: none;
@@ -97,7 +104,8 @@ body{
     transition: 0.3s;
 }
 
-.login-form #login-submit:hover{
+.login-form #login-submit:hover,
+.login-form #sign-up-submit:hover{
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.3);
 }
@@ -157,7 +165,8 @@ body{
     cursor: grabbing;
 }
 
-.task.ui-draggable-dragging{
-    opacity: 1;
+.task.ui-draggable-dragging {
+    opacity: 1 !important;
     transform: scale(1.05);
+    z-index: 1000;
 }
