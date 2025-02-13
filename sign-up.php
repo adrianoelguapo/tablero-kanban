@@ -36,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ]);
 
     if ($result->getInsertedCount() > 0) {
-        $_SESSION["success"] = "Registro exitoso. Ahora puedes iniciar sesión.";
         header("Location: sign-up.php");
         exit();
     } else {
@@ -72,12 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 </div>
 
-                <!-- Mostrar errores o mensajes de éxito -->
                 <?php if (isset($_SESSION["error"])): ?>
+
                     <p class="error-message"><?php echo $_SESSION["error"]; unset($_SESSION["error"]); ?></p>
-                <?php endif; ?>
-                <?php if (isset($_SESSION["success"])): ?>
-                    <p class="success-message"><?php echo $_SESSION["success"]; unset($_SESSION["success"]); ?></p>
+
                 <?php endif; ?>
 
                 <form method = "post" action = "sign-up.php">
