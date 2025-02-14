@@ -21,13 +21,28 @@
 
     <body>
 
-        <div class = "home-container">
+        <div class = "max-container">
 
-            <div class = "buttons-container">
+            <div class = "home-container">
 
-                <button class = "button" id = "add-task">Add task</button>
-                <button class = "button" id = "log-out"><a href = "logout.php">Log Out</a></button>
-    
+                <div class = "header-container">
+
+                    <div class = "user-container">
+
+                        <img src = "images/users.svg" alt = "user-icon">
+                        <p><?php echo $_SESSION['username'];?></p>
+
+                    </div>
+
+                    <div class = "buttons-container">
+
+                        <button class = "button" id = "add-task">Add task</button>
+                        <button class = "button" id = "log-out"><a href = "logout.php">Log Out</a></button>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <div class = "kanban-container">
@@ -38,42 +53,61 @@
 
                     <div class = "task" data-origin = "idea">
 
-                        <p class = "task-title">Tablero Kanban - Adriano</p>
-
-                        <div class = "task-buttons">
-
-                            <button class = "task-button" id = "show-notes">Notas</button>
-                            <button class = "task-button second-task-button" id = "show-workers">Colaboradores</button>
-
-                        </div>
+                        <p class = "task-title"><b>Task:</b> Tablero Kanban</p>
+                        <p class = "task-author"><b>Author:</b> adriano</p>
+                        <p class = "task-workers"><b>Workers:</b> bruno, orto, noel</p>
 
                     </div>
 
-                    <div class = "task" data-origin = "idea">Tarea 2</div>
+                    <div class = "task" data-origin = "idea">
+
+                        <p class = "task-title"><b>Task:</b> Tablero Kanban</p>
+                        <p class = "task-author"><b>Author:</b> adriano</p>
+                        <p class = "task-workers"><b>Workers:</b> bruno, orto, noel</p>
+
+                    </div>
+
+                    <div class = "task" data-origin = "idea">
+
+                        <p class = "task-title"><b>Task:</b> Tablero Kanban</p>
+                        <p class = "task-author"><b>Author:</b> adriano</p>
+                        <p class = "task-workers"><b>Workers:</b> bruno, orto, noel</p>
+
+                    </div>
+
+                    <div class = "task" data-origin = "idea">
+
+                        <p class = "task-title"><b>Task:</b> Tablero Kanban</p>
+                        <p class = "task-author"><b>Author:</b> adriano</p>
+                        <p class = "task-workers"><b>Workers:</b> bruno, orto, noel</p>
+
+                    </div>
     
                 </div>
-    
+
                 <div class = "kanban-column" id = "todo">
     
                     <h2>TO DO</h2>
     
                 </div>
-    
+
                 <div class = "kanban-column" id = "doing">
     
                     <h2>DOING</h2>
     
                 </div>
-    
+
                 <div class = "kanban-column" id = "done">
     
                     <h2>DONE</h2>
     
                 </div>
-    
-            </div>
 
             </div>
+
+            <footer>Developed by Adriano ©</footer>
+
+        </div>
 
     </body>
 
