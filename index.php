@@ -1,5 +1,6 @@
 <?php
 
+    session_start();
     require 'vendor/autoload.php';
 
     use MongoDB\Client;
@@ -12,18 +13,21 @@
         $username = trim($_POST['username']);
         $password = trim($_POST['password']);
 
-        if ($username && $password) {
+        if (!empty($username) && !empty($password)) {
             $user = $userCollection->findOne(['username' => $username]);
 
             if ($user && $password === $user['password']) {
-                header('Location: home.html');
+                $_SESSION['username'] = $username;
+                header('Location: home.php');
                 exit;
             } else {
-                header('Location: index.html');
+                $_SESSION['error'] = "Usuario o contraseña incorrectos.";
+                header('Location: index.php');
                 exit;
             }
         } else {
-            header('Location: index.html');
+            $_SESSION['error'] = "Todos los campos son obligatorios.";
+            header('Location: index.php');
             exit;
         }
     }
@@ -49,35 +53,38 @@
             <div class = "login-form">
 
                 <div class = "login-details">
-    
+
                     <p class = "login-title">Log In</p>
                     <p class = "login-desc">Please enter your account details</p>
-    
+
                 </div>
-    
+
+                <?php if (isset($_SESSION["error"])): ?>
+
+                    <p class = "error-message"><?php echo $_SESSION["error"]; unset($_SESSION["error"]); ?></p>
+                
+                <?php endif; ?>
+
                 <form method = "post">
-    
+
                     <label for = "login-email">Username</label>
                     <input type = "text" id = "login-email" name = "username">
-                    
+
                     <label for = "login-pass">Password</label>
                     <input type = "password" id = "login-pass" name = "password">
-                    
 
                     <span>
-
                         <input type = "submit" value = "Log In" id = "login-submit">
-
-                    </span>    
+                    </span>
 
                 </form>
 
                 <p class = "login-desc">Don't have an account? <a href = "sign-up.php"><b>Sign Up</b></a></p>
-    
+
             </div>
 
         </div>
-        
+
     </body>
 
 </html>

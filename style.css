@@ -133,6 +133,23 @@ body{
     margin-top: -12.5%;
 }
 
+.buttons-container{
+    display: flex;
+    width: 20%;
+    justify-content: center;
+    gap: 15%;
+}
+
+.buttons-container a{
+    color: white;
+    text-decoration: none;
+}
+
+.buttons-container .button{
+    width: 100%;
+    font-size: 15px;
+}
+
 .kanban-container{
     margin-top: 2%;
     display: flex;
@@ -180,13 +197,13 @@ body{
     cursor: grabbing;
 }
 
-.task.ui-draggable-dragging {
+.task.ui-draggable-dragging{
     opacity: 1 !important;
     transform: scale(1.05);
     z-index: 1000;
 }
 
-#add-task {
+.button{
     background: rgba(255, 255, 255, 0.2);
     color: white;
     font-size: 1.2em;
@@ -204,7 +221,30 @@ body{
     text-align: center;
 }
 
-#add-task:hover {
+.button:hover{
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+.task-button{
+    background-image: url("images/bg5.jpg");
+    background-size: cover;
+    color: white;
+    font-size: 1em;
+    padding: 5% 7.5%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.3);
+    width: 70%;
+    text-align: center;
+}
+
+.task-button:hover{
+    transform: scale(1.05);
+}
+
+.second-task-button{
+    margin-top: 5%;
 }

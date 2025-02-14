@@ -13,14 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST["sign-up-username"]);
     $password = trim($_POST["sign-up-password"]);
 
-    // Validar campos vacíos
     if (empty($username) || empty($password)) {
         $_SESSION["error"] = "Todos los campos son obligatorios.";
         header("Location: sign-up.php");
         exit();
     }
 
-    // Verificar si el usuario ya existe
     $existingUser = $collection->findOne(["username" => $username]);
 
     if ($existingUser) {
@@ -29,14 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Insertar el nuevo usuario
     $result = $collection->insertOne([
         "username" => $username,
         "password" => $password
     ]);
 
     if ($result->getInsertedCount() > 0) {
-        header("Location: sign-up.php");
+        header("Location: index.php");
         exit();
     } else {
         $_SESSION["error"] = "Error: No se pudo registrar el usuario.";
@@ -73,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <?php if (isset($_SESSION["error"])): ?>
 
-                    <p class="error-message"><?php echo $_SESSION["error"]; unset($_SESSION["error"]); ?></p>
+                    <p class = "error-message"><?php echo $_SESSION["error"]; unset($_SESSION["error"]); ?></p>
 
                 <?php endif; ?>
 

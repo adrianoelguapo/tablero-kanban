@@ -1,3 +1,9 @@
+<?php
+
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,9 +23,10 @@
 
         <div class = "home-container">
 
-            <div class = "add-task-container">
+            <div class = "buttons-container">
 
-                <button id = "add-task">Add task</button>
+                <button class = "button" id = "add-task">Add task</button>
+                <button class = "button" id = "log-out"><a href = "logout.php">Log Out</a></button>
     
             </div>
 
@@ -28,7 +35,20 @@
                 <div class = "kanban-column" id = "idea">
 
                     <h2>IDEA</h2>
-                    <div class = "task" data-origin = "idea">Tarea 1</div>
+
+                    <div class = "task" data-origin = "idea">
+
+                        <p class = "task-title">Tablero Kanban - Adriano</p>
+
+                        <div class = "task-buttons">
+
+                            <button class = "task-button" id = "show-notes">Notas</button>
+                            <button class = "task-button second-task-button" id = "show-workers">Colaboradores</button>
+
+                        </div>
+
+                    </div>
+
                     <div class = "task" data-origin = "idea">Tarea 2</div>
     
                 </div>
