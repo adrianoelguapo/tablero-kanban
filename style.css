@@ -11,20 +11,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
+    width: 100vw;
 }
 
 /* --- Estilos para login y registro --- */
-.login-container{
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.login-form{
+.login-form {
     width: 25%;
     padding: 3%;
     display: flex;
@@ -38,41 +39,41 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.login-details{
+.login-details {
     text-align: center;
     margin-bottom: 5%;
 }
 
-.login-title{
+.login-title {
     font-weight: bold;
     font-size: 28px;
     color: #f3e5f5;
 }
 
-.login-desc{
+.login-desc {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
 }
 
-.login-desc a{
+.login-desc a {
     text-decoration: none;
     color: white;
     transition: all 0.3s;
 }
 
-.login-form form{
+.login-form form {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.login-form label{
+.login-form label {
     font-size: 14px;
     margin-bottom: 2%;
     color: rgba(255, 255, 255, 0.9);
 }
 
-.login-form input{
+.login-form input {
     width: 94%;
     padding: 12px;
     margin-bottom: 5%;
@@ -85,17 +86,17 @@ body {
     transition: 0.3s;
 }
 
-.login-form input::placeholder{
+.login-form input::placeholder {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.login-form input:focus{
+.login-form input:focus {
     background: rgba(255, 255, 255, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .login-form #login-submit,
-.login-form #sign-up-submit{
+.login-form #sign-up-submit {
     width: 60%;
     padding: 3%;
     border: none;
@@ -107,12 +108,12 @@ body {
 }
 
 .login-form #login-submit:hover,
-.login-form #sign-up-submit:hover{
+.login-form #sign-up-submit:hover {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.3);
 }
 
-.login-form span{
+.login-form span {
     margin-top: 5%;
     display: flex;
     justify-content: center;
@@ -140,16 +141,16 @@ body {
     width: 90%;
 }
 
-/* --- Cabecera --- */
+/* --- Cabecera (sticky) --- */
 .header-container {
-    display: flex;
+    position: sticky;
+    top: 0;
     width: 100%;
+    z-index: 100;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1% 2%;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Usuario en la cabecera --- */
@@ -171,14 +172,16 @@ body {
     display: flex;
     align-items: center;
     gap: 5%;
+    width: 30%;
 }
 
 .buttons-container .button {
     font-size: 1rem;
     width: 100%;
+    padding: 3% 4%;
 }
 
-.buttons-container .button a{
+.buttons-container .button a {
     color: white;
     text-decoration: none;
 }
@@ -189,7 +192,7 @@ body {
     width: 95%;
     gap: 2%;
     justify-content: center;
-    margin-top: 2%;
+    margin-top: 20px; /* Espacio entre la cabecera y el tablero */
 }
 
 /* --- Columnas del tablero --- */
@@ -201,15 +204,15 @@ body {
     border-radius: 1rem;
     box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    min-height: 60vh;
-    max-height: 70vh;
+    min-height: 600px;  
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow-y: auto; /* Permite desplazamiento interno */
-    overflow-x: hidden; /* Evita que las tareas se desborden */
+    overflow-x: hidden;
+    overflow-y: visible;
 }
+
 
 .kanban-column h2 {
     font-size: 1.5rem;
@@ -230,7 +233,7 @@ body {
     box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
     border: 0.2vw solid rgba(255, 255, 255, 0.2);
-    position: relative; /* Mantiene la tarea dentro de la columna */
+    position: relative;
 }
 
 .task:hover {
@@ -254,15 +257,17 @@ body {
     color: #f3e5f5;
 }
 
+/* --- Comportamiento durante el arrastre --- */
 .task.ui-draggable-dragging {
-    opacity: 1 !important;
-    transform: scale(1.05);
+    opacity: 0.8 !important;
     z-index: 1000;
-    position: fixed !important; /* Evita que las tareas salgan del viewport */
-    pointer-events: none; /* Evita que las tareas empujen otras al moverse */
-    width: auto;
-    max-width: 90%; /* Ajusta el ancho para que se vea bien al arrastrar */
+    position: absolute !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
 }
+
 
 /* --- Botones generales --- */
 .button {
