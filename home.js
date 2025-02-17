@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Configuración del draggable y droppable (ya existente)
+    // Configuración de draggable/droppable existente...
     $(".task").draggable({
         helper: "clone",
         appendTo: "body",
@@ -56,29 +56,21 @@ $(document).ready(function () {
             $.post("update-task-state.php", { id: taskId, state: newState })
                 .done(function(response) {
                     console.log("Actualización exitosa:", response);
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error("Error al actualizar:", textStatus, errorThrown);
                 });
         }
     });
 
-    // Modal functionality
-    var modal = $("#notes-modal");
-    var spanClose = $(".modal .close");
+    // Modal de Notas (ya implementado)
+    var notesModal = $("#notes-modal");
+    var notesClose = $(".modal .close").not(".edit-task-close, .collaborators-close, .edit-collaborators-close");
     var currentTaskId = null;
 
-    // Usamos event delegation para el clic en .notes-button
     $(document).on("click", ".notes-button", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        // Actualizamos el id de la tarea a mostrar
         currentTaskId = $(this).closest(".task").data("id");
-        // Limpiar el contenedor de notas
         $("#notes-list").empty();
-        // Mostrar el modal
-        modal.show();
-        // Agregar un parámetro de tiempo para evitar caché
+        notesModal.show();
         $.get("get-notes.php", { id: currentTaskId, t: new Date().getTime() }, function (data) {
             var notesHtml = "";
             if (data && data.length > 0) {
@@ -92,27 +84,16 @@ $(document).ready(function () {
         }, "json");
     });
     
-
-    // Cerrar el modal al hacer clic en el <span class="close">
-    spanClose.on("click", function () {
-        modal.hide();
+    notesClose.on("click", function () {
+        notesModal.hide();
     });
-
-    // Cerrar el modal si se hace clic fuera del contenido
-    $(window).on("click", function (e) {
-        if ($(e.target).is(modal)) {
-            modal.hide();
-        }
-    });
-
-    // Enviar nueva nota
+    
     $("#add-note-form").on("submit", function (e) {
         e.preventDefault();
         var noteMessage = $(this).find("textarea[name='note-message']").val();
         if (!noteMessage || !currentTaskId) return;
         $.post("add-note.php", { id: currentTaskId, message: noteMessage }, function (response) {
             console.log("Nota añadida:", response);
-            // Recargar las notas después de añadir
             $.get("get-notes.php", { id: currentTaskId }, function (data) {
                 var notesHtml = "";
                 if (data && data.length > 0) {
@@ -128,34 +109,25 @@ $(document).ready(function () {
         });
     });
 
-    // --- Modal "Añadir Tarea" ---
-    let addTaskModal = $("#add-task-modal");
-    let collaboratorsModal = $("#collaborators-modal");
-    
-    // Abrir modal de "Añadir Tarea" al hacer clic en el botón correspondiente
+    // Modal de Añadir Nueva Tarea
+    var addTaskModal = $("#add-task-modal");
     $("#add-task").on("click", function(){
-        // Limpiar formulario y colaboradores seleccionados
         $("#add-task-form")[0].reset();
         $("#selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
         addTaskModal.fadeIn();
     });
-    
-    // Cerrar modal "Añadir Tarea"
     $(".add-task-close").on("click", function(){
         addTaskModal.fadeOut();
     });
     
-    // Abrir modal de "Seleccionar Colaboradores" desde el modal de tarea
+    // Modal de Seleccionar Colaboradores para nueva tarea
+    var collaboratorsModal = $("#collaborators-modal");
     $("#select-collaborators").on("click", function(){
         collaboratorsModal.fadeIn();
     });
-    
-    // Cerrar modal de "Seleccionar Colaboradores"
     $(".collaborators-close").on("click", function(){
         collaboratorsModal.fadeOut();
     });
-    
-    // Guardar la selección de colaboradores y actualizar el modal de tarea
     $("#save-collaborators").on("click", function(){
         var selected = [];
         $("#collaborators-list input[type='checkbox']:checked").each(function(){
@@ -166,32 +138,93 @@ $(document).ready(function () {
         } else {
             $("#selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
         }
-        collaboratorsModal.hide();
+        collaboratorsModal.fadeOut();
     });
     
-    // Enviar el formulario para crear la nueva tarea
     $("#add-task-form").on("submit", function(e){
         e.preventDefault();
         var title = $("#task-title").val();
-        var state = $("input[name='state']").val(); // 'idea'
-        // Extraer colaboradores del contenido mostrado (quita "Colaboradores: " si es necesario)
+        var state = $("input[name='state']").val();
         var collaboratorsText = $("#selected-collaborators p").text();
         var workers = [];
         if(collaboratorsText.indexOf("Colaboradores:") !== -1) {
             workers = collaboratorsText.replace("Colaboradores:", "").trim().split(", ");
         }
-        
         var newTask = {
             title: title,
             state: state,
             workers: workers
         };
-        
         $.post("add-task.php", newTask, function(response){
-            // Recargar la página para ver la nueva tarea en el tablero
             location.reload();
-        }, "json").fail(function(jqXHR, textStatus, errorThrown){
-            console.error("Error al crear tarea:", textStatus, errorThrown);
+        }, "json");
+    });
+    
+    // Modal de Editar Tarea
+    var editTaskModal = $("#edit-task-modal");
+    var editCollaboratorsModal = $("#edit-collaborators-modal");
+    var currentEditTaskId = null;
+    
+    $(document).on("click", ".edit-task-button", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $task = $(this).closest(".task");
+        currentEditTaskId = $task.data("id");
+        // Pre-cargar el título y colaboradores usando data attributes
+        var title = $task.data("title") || $task.find(".task-title").text().replace("Task:", "").trim();
+        var workers = $task.data("workers") || $task.find(".task-workers").text().replace("Workers:", "").trim();
+        $("#edit-task-title").val(title);
+        if(workers) {
+            $("#edit-selected-collaborators").html("<p>Colaboradores: " + workers + "</p>");
+        } else {
+            $("#edit-selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
+        }
+        editTaskModal.data("task-id", currentEditTaskId).fadeIn();
+    });
+    
+    $(".edit-task-close").on("click", function(){
+        editTaskModal.fadeOut();
+    });
+    
+    $("#edit-select-collaborators").on("click", function(){
+        editCollaboratorsModal.fadeIn();
+    });
+    $(".edit-collaborators-close").on("click", function(){
+        editCollaboratorsModal.fadeOut();
+    });
+    $("#edit-save-collaborators").on("click", function(){
+        var selected = [];
+        $("#edit-collaborators-list input[type='checkbox']:checked").each(function(){
+            selected.push($(this).val());
         });
+        if(selected.length > 0) {
+            $("#edit-selected-collaborators").html("<p>Colaboradores: " + selected.join(", ") + "</p>");
+        } else {
+            $("#edit-selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
+        }
+        editCollaboratorsModal.fadeOut();
+    });
+    
+    $("#edit-task-form").on("submit", function(e){
+        e.preventDefault();
+        var taskId = editTaskModal.data("task-id");
+        var newTitle = $("#edit-task-title").val();
+        var collaboratorsText = $("#edit-selected-collaborators p").text();
+        var workers = [];
+        if(collaboratorsText.indexOf("Colaboradores:") !== -1) {
+            workers = collaboratorsText.replace("Colaboradores:", "").trim().split(", ");
+        }
+        $.post("update-task.php", { id: taskId, title: newTitle, workers: workers }, function(response){
+            location.reload();
+        }, "json");
+    });
+    
+    $("#delete-task").on("click", function(){
+        if(confirm("¿Estás seguro de eliminar esta tarea?")) {
+            var taskId = editTaskModal.data("task-id");
+            $.post("delete-task.php", { id: taskId }, function(response){
+                location.reload();
+            }, "json");
+        }
     });
 });

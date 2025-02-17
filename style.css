@@ -187,6 +187,7 @@ body {
     width: 95%;
     gap: 2%;
     justify-content: center;
+    margin-bottom: 2%;
 }
 
 .kanban-column {
@@ -197,7 +198,7 @@ body {
     border-radius: 1rem;
     box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    min-height: 600px;  
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -246,14 +247,12 @@ body {
     color: #f3e5f5;
 }
 
-.task.ui-draggable-dragging {
-    opacity: 0.8 !important;
-    z-index: 1000;
-    position: absolute !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: none !important;
-    max-height: none !important;
+/* Contenedor para los botones dentro de la task */
+.task-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    margin-top: 3%;
 }
 
 .button {
@@ -276,7 +275,8 @@ body {
     transform: scale(1.05);
 }
 
-.notes-button {
+/* Estilos unificados para "Ver Notas" y "Editar Tarea" */
+.notes-button, .edit-task-button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
     font-size: 0.9em;
@@ -292,14 +292,14 @@ body {
     margin: 0 auto;
 }
 
-.notes-button:hover {
+.notes-button:hover, .edit-task-button:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
 
 /* --- Modal Container --- */
 .modal {
-    display: none;              /* Oculto por defecto */
+    display: none;
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -352,7 +352,7 @@ body {
     font-size: 1rem;
 }
 
-/* --- Botón para añadir nota --- */
+/* --- Botón para añadir nota en el modal --- */
 .modal-content button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -384,6 +384,17 @@ body {
     color: white;
 }
 
+#edit-task-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* --- Estilos para el formulario de añadir tarea (botones) --- */
 #add-task-form button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -393,15 +404,9 @@ body {
     cursor: pointer;
     margin: 10px 5px;
     transition: transform 0.3s;
+    display: inline-block;
+    margin: 10px 5px 10px 0;
 }
 #add-task-form button:hover {
     transform: scale(1.05);
-}
-
-/* --- Footer --- */
-footer {
-    color: white;
-    width: 100%;
-    text-align: center;
-    padding: 1%;
 }
