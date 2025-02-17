@@ -1,6 +1,7 @@
 <?php
 
     header('Content-Type: application/json');
+    
     require 'vendor/autoload.php';
     use MongoDB\Client;
     use MongoDB\BSON\ObjectId;

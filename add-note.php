@@ -1,13 +1,14 @@
 <?php
 
     session_start();
+
     require 'vendor/autoload.php';
     use MongoDB\Client;
     use MongoDB\BSON\ObjectId;
 
     $id = $_POST['id'];
     $message = $_POST['message'];
-    $author = $_SESSION['username'] ?? 'Desconocido';
+    $author = $_SESSION['username'];
 
     try {
         $mongoClient = new Client("mongodb+srv://admin:123@cluster0.tz018.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");

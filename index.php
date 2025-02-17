@@ -18,6 +18,7 @@
 
             if ($user && $password === $user['password']) {
                 $_SESSION['username'] = $username;
+                $_SESSION['role'] = $user['role'];
                 header('Location: home.php');
                 exit;
             } else {

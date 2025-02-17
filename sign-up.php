@@ -1,46 +1,48 @@
 <?php
-session_start();
-require 'vendor/autoload.php';
 
-use MongoDB\Client;
+    session_start();
+    require 'vendor/autoload.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mongoClient = new Client("mongodb+srv://admin:123@cluster0.tz018.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-    
-    $database = $mongoClient->kanban;
-    $collection = $database->users;
+    use MongoDB\Client;
 
-    $username = trim($_POST["sign-up-username"]);
-    $password = trim($_POST["sign-up-password"]);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $mongoClient = new Client("mongodb+srv://admin:123@cluster0.tz018.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+        
+        $database = $mongoClient->kanban;
+        $collection = $database->users;
 
-    if (empty($username) || empty($password)) {
-        $_SESSION["error"] = "Todos los campos son obligatorios.";
-        header("Location: sign-up.php");
-        exit();
+        $username = trim($_POST["sign-up-username"]);
+        $password = trim($_POST["sign-up-password"]);
+
+        if (empty($username) || empty($password)) {
+            $_SESSION["error"] = "Todos los campos son obligatorios.";
+            header("Location: sign-up.php");
+            exit();
+        }
+
+        $existingUser = $collection->findOne(["username" => $username]);
+
+        if ($existingUser) {
+            $_SESSION["error"] = "El nombre de usuario ya está en uso. Intenta con otro.";
+            header("Location: sign-up.php");
+            exit();
+        }
+
+        $result = $collection->insertOne([
+            "username" => $username,
+            "password" => $password
+        ]);
+
+        if ($result->getInsertedCount() > 0) {
+            header("Location: index.php");
+            exit();
+        } else {
+            $_SESSION["error"] = "Error: No se pudo registrar el usuario.";
+            header("Location: sign-up.php");
+            exit();
+        }
     }
 
-    $existingUser = $collection->findOne(["username" => $username]);
-
-    if ($existingUser) {
-        $_SESSION["error"] = "El nombre de usuario ya está en uso. Intenta con otro.";
-        header("Location: sign-up.php");
-        exit();
-    }
-
-    $result = $collection->insertOne([
-        "username" => $username,
-        "password" => $password
-    ]);
-
-    if ($result->getInsertedCount() > 0) {
-        header("Location: index.php");
-        exit();
-    } else {
-        $_SESSION["error"] = "Error: No se pudo registrar el usuario.";
-        header("Location: sign-up.php");
-        exit();
-    }
-}
 ?>
 
 <!DOCTYPE html>
