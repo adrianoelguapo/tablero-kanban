@@ -125,8 +125,73 @@ $(document).ready(function () {
                 $("#notes-list").html(notesHtml);
                 $("#add-note-form textarea").val("");
             }, "json");
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Error al añadir nota:", textStatus, errorThrown);
+        });
+    });
+
+    // --- Modal "Añadir Tarea" ---
+    let addTaskModal = $("#add-task-modal");
+    let collaboratorsModal = $("#collaborators-modal");
+    
+    // Abrir modal de "Añadir Tarea" al hacer clic en el botón correspondiente
+    $("#add-task").on("click", function(){
+        // Limpiar formulario y colaboradores seleccionados
+        $("#add-task-form")[0].reset();
+        $("#selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
+        addTaskModal.fadeIn();
+    });
+    
+    // Cerrar modal "Añadir Tarea"
+    $(".add-task-close").on("click", function(){
+        addTaskModal.fadeOut();
+    });
+    
+    // Abrir modal de "Seleccionar Colaboradores" desde el modal de tarea
+    $("#select-collaborators").on("click", function(){
+        collaboratorsModal.fadeIn();
+    });
+    
+    // Cerrar modal de "Seleccionar Colaboradores"
+    $(".collaborators-close").on("click", function(){
+        collaboratorsModal.fadeOut();
+    });
+    
+    // Guardar la selección de colaboradores y actualizar el modal de tarea
+    $("#save-collaborators").on("click", function(){
+        var selected = [];
+        $("#collaborators-list input[type='checkbox']:checked").each(function(){
+            selected.push($(this).val());
+        });
+        if(selected.length > 0) {
+            $("#selected-collaborators").html("<p>Colaboradores: " + selected.join(", ") + "</p>");
+        } else {
+            $("#selected-collaborators").html("<p>No hay colaboradores seleccionados.</p>");
+        }
+        collaboratorsModal.hide();
+    });
+    
+    // Enviar el formulario para crear la nueva tarea
+    $("#add-task-form").on("submit", function(e){
+        e.preventDefault();
+        var title = $("#task-title").val();
+        var state = $("input[name='state']").val(); // 'idea'
+        // Extraer colaboradores del contenido mostrado (quita "Colaboradores: " si es necesario)
+        var collaboratorsText = $("#selected-collaborators p").text();
+        var workers = [];
+        if(collaboratorsText.indexOf("Colaboradores:") !== -1) {
+            workers = collaboratorsText.replace("Colaboradores:", "").trim().split(", ");
+        }
+        
+        var newTask = {
+            title: title,
+            state: state,
+            workers: workers
+        };
+        
+        $.post("add-task.php", newTask, function(response){
+            // Recargar la página para ver la nueva tarea en el tablero
+            location.reload();
+        }, "json").fail(function(jqXHR, textStatus, errorThrown){
+            console.error("Error al crear tarea:", textStatus, errorThrown);
         });
     });
 });

@@ -300,14 +300,14 @@ body {
 /* --- Modal Container --- */
 .modal {
     display: none;              /* Oculto por defecto */
-    position: fixed;            /* Se posiciona sobre todo */
-    z-index: 2000;              /* Alto z-index para estar sobre todo */
+    position: fixed;
+    z-index: 2000;
     left: 0;
     top: 0;
-    width: 100%;                /* Cubre todo el viewport */
+    width: 100%;
     height: 100%;
-    overflow: auto;             /* Permite scroll si es necesario */
-    background-color: rgba(0, 0, 0, 0.6);  /* Fondo oscuro semi-transparente */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* --- Modal Content --- */
@@ -316,10 +316,10 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    margin: 10% auto;           /* Centrado vertical con margen superior */
+    margin: 10% auto;
     padding: 20px;
-    width: 90%;                 /* Ancho responsivo */
-    max-width: 500px;           /* Máximo ancho */
+    width: 90%;
+    max-width: 500px;
     position: relative;
     color: white;
 }
@@ -342,7 +342,7 @@ body {
 
 /* --- Estilos para el textarea en el modal --- */
 .modal-content textarea {
-    width: 97%;
+    width: 96.5%;
     height: 100px;
     padding: 10px;
     margin-top: 10px;
@@ -370,6 +370,31 @@ body {
 }
 .modal-content button:hover {
     background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* --- Estilos para el formulario de añadir tarea --- */
+#add-task-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#add-task-form button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: transform 0.3s;
+}
+#add-task-form button:hover {
     transform: scale(1.05);
 }
 
