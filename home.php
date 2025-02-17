@@ -28,11 +28,10 @@ $doingTasks = [];
 $doneTasks = [];
 
 foreach ($tasksCursor as $task) {
-    $taskTitle   = $task['title']   ?? 'Sin título';
-    $taskAuthor  = $task['author']  ?? 'Desconocido';
+    $taskTitle = $task['title']   ?? 'Sin título';
+    $taskAuthor = $task['author']  ?? 'Desconocido';
     $taskWorkers = isset($task['workers']) ? implode(', ', (array)$task['workers']) : '';
-    $state       = $task['state']   ?? 'idea';
-    // Convertir el _id a string:
+    $state = $task['state']   ?? 'idea';
     $taskId = (string)$task['_id'];
 
     $taskHTML = "
@@ -40,7 +39,9 @@ foreach ($tasksCursor as $task) {
         <p class='task-title'><b>Task:</b> {$taskTitle}</p>
         <p class='task-author'><b>Author:</b> {$taskAuthor}</p>
         <p class='task-workers'><b>Workers:</b> {$taskWorkers}</p>
+        <button class='notes-button'>Ver Notas</button>
     </div>";
+
 
     switch ($state) {
         case 'idea':
@@ -152,6 +153,30 @@ foreach ($tasksCursor as $task) {
             </div>
 
             <footer>Developed by Adriano ©</footer>
+
+        </div>
+
+        <div id = "notes-modal" class = "modal">
+
+            <div class = "modal-content">
+
+                <span class = "close">&times;</span>
+                <h2>Notas de la Tarea</h2>
+
+                <div id = "notes-list">
+
+                    <!-- Aquí se cargarán las notas -->
+                     
+                </div>
+
+                <form id = "add-note-form">
+
+                    <textarea name = "note-message" placeholder = "Escribe una nota..." required></textarea>
+                    <button type = "submit">Añadir Nota</button>
+
+                </form>
+
+            </div>
 
         </div>
 

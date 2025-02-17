@@ -125,7 +125,7 @@ body {
     font-weight: bold;
 }
 
-/* --- Contenedor máximo --- */
+/* --- Estilos para la página principal --- */
 .max-container {
     display: flex;
     flex-direction: column;
@@ -133,7 +133,6 @@ body {
     width: 100%;
 }
 
-/* --- Contenedor principal de la home --- */
 .home-container {
     display: flex;
     flex-direction: column;
@@ -141,7 +140,6 @@ body {
     width: 90%;
 }
 
-/* --- Cabecera (sticky) --- */
 .header-container {
     position: sticky;
     top: 0;
@@ -153,7 +151,6 @@ body {
     padding: 1% 2%;
 }
 
-/* --- Usuario en la cabecera --- */
 .user-container {
     display: flex;
     align-items: center;
@@ -164,10 +161,9 @@ body {
 .user-container img {
     width: 40px;
     height: 40px;
-    margin-right: 10px;
+    margin-right: 5%;
 }
 
-/* --- Botones en la cabecera --- */
 .buttons-container {
     display: flex;
     align-items: center;
@@ -186,16 +182,13 @@ body {
     text-decoration: none;
 }
 
-/* --- Tablero Kanban --- */
 .kanban-container {
     display: flex;
     width: 95%;
     gap: 2%;
     justify-content: center;
-    margin-top: 20px; /* Espacio entre la cabecera y el tablero */
 }
 
-/* --- Columnas del tablero --- */
 .kanban-column {
     width: 22%;
     background: rgba(255, 255, 255, 0.1);
@@ -213,7 +206,6 @@ body {
     overflow-y: visible;
 }
 
-
 .kanban-column h2 {
     font-size: 1.5rem;
     text-align: center;
@@ -221,7 +213,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* --- Tareas --- */
 .task {
     background: rgba(255, 255, 255, 0.15);
     padding: 5%;
@@ -229,7 +220,7 @@ body {
     border-radius: 10px;
     cursor: grab;
     width: 90%;
-    transition: transform 0.3s ease-in-out, background 0.3s;
+    transition: background 0.3s;
     box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
     border: 0.2vw solid rgba(255, 255, 255, 0.2);
@@ -238,12 +229,10 @@ body {
 
 .task:hover {
     background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.03);
 }
 
 .task:active {
     cursor: grabbing;
-    transform: scale(1.05);
     box-shadow: 0 0.6vw 1.2vw rgba(0, 0, 0, 0.4);
 }
 
@@ -257,7 +246,6 @@ body {
     color: #f3e5f5;
 }
 
-/* --- Comportamiento durante el arrastre --- */
 .task.ui-draggable-dragging {
     opacity: 0.8 !important;
     z-index: 1000;
@@ -268,8 +256,6 @@ body {
     max-height: none !important;
 }
 
-
-/* --- Botones generales --- */
 .button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -290,28 +276,101 @@ body {
     transform: scale(1.05);
 }
 
-/* --- Botones de tareas --- */
-.task-button {
-    background-image: url("images/bg5.jpg");
-    background-size: cover;
+.notes-button {
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    font-size: 1em;
-    padding: 5% 7.5%;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 3% 7%;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.3s, background 0.3s;
+    backdrop-filter: blur(10px);
     box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.3);
-    width: 70%;
-    text-align: center;
+    display: block;
+    margin: 0 auto;
 }
 
-.task-button:hover {
+.notes-button:hover {
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
 
-.second-task-button {
-    margin-top: 5%;
+/* --- Modal Container --- */
+.modal {
+    display: none;              /* Oculto por defecto */
+    position: fixed;            /* Se posiciona sobre todo */
+    z-index: 2000;              /* Alto z-index para estar sobre todo */
+    left: 0;
+    top: 0;
+    width: 100%;                /* Cubre todo el viewport */
+    height: 100%;
+    overflow: auto;             /* Permite scroll si es necesario */
+    background-color: rgba(0, 0, 0, 0.6);  /* Fondo oscuro semi-transparente */
+}
+
+/* --- Modal Content --- */
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin: 10% auto;           /* Centrado vertical con margen superior */
+    padding: 20px;
+    width: 90%;                 /* Ancho responsivo */
+    max-width: 500px;           /* Máximo ancho */
+    position: relative;
+    color: white;
+}
+
+/* --- Botón de cierre --- */
+.modal .close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal .close:hover,
+.modal .close:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* --- Estilos para el textarea en el modal --- */
+.modal-content textarea {
+    width: 97%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1rem;
+}
+
+/* --- Botón para añadir nota --- */
+.modal-content button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.3);
+    display: block;
+    margin: 15px auto 0;
+}
+.modal-content button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
 }
 
 /* --- Footer --- */
