@@ -162,11 +162,11 @@
 
         </div>
 
-        <div id="add-task-modal" class="modal">
+        <div id = "add-task-modal" class = "modal">
 
-            <div class="modal-content">
+            <div class = "modal-content">
 
-                <span class="close add-task-close">&times;</span>
+                <span class = "close add-task-close">&times;</span>
 
                 <h2>Añadir Nueva Tarea</h2>
 

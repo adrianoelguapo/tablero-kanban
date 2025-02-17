@@ -247,7 +247,6 @@ body {
     color: #f3e5f5;
 }
 
-/* Contenedor para los botones dentro de la task */
 .task-buttons {
     display: flex;
     justify-content: center;
@@ -275,7 +274,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Estilos unificados para "Ver Notas" y "Editar Tarea" */
 .notes-button, .edit-task-button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -297,7 +295,6 @@ body {
     transform: scale(1.05);
 }
 
-/* --- Modal Container --- */
 .modal {
     display: none;
     position: fixed;
@@ -310,7 +307,6 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* --- Modal Content --- */
 .modal-content {
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -324,7 +320,6 @@ body {
     color: white;
 }
 
-/* --- Botón de cierre --- */
 .modal .close {
     color: #aaa;
     position: absolute;
@@ -340,7 +335,6 @@ body {
     text-decoration: none;
 }
 
-/* --- Estilos para el textarea en el modal --- */
 .modal-content textarea {
     width: 96.5%;
     height: 100px;
@@ -352,7 +346,6 @@ body {
     font-size: 1rem;
 }
 
-/* --- Botón para añadir nota en el modal --- */
 .modal-content button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -373,19 +366,8 @@ body {
     transform: scale(1.05);
 }
 
-/* --- Estilos para el formulario de añadir tarea --- */
-#add-task-form input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
 #edit-task-form input[type="text"] {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -394,7 +376,16 @@ body {
     color: white;
 }
 
-/* --- Estilos para el formulario de añadir tarea (botones) --- */
+#add-task-form input[type="text"] {
+    width: 96%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
 #add-task-form button {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -412,6 +403,7 @@ body {
     transform: scale(1.05);
 }
 
+/* --- Media Queries --- */
 @media (min-width: 768px) and (max-width: 1024px) {
     .kanban-container {
         overflow-x: auto;
@@ -427,6 +419,10 @@ body {
 
     .login-form{
         width: 50%;
+    }
+
+    #idea{
+        margin-left: 3.5%;
     }
 }
 
@@ -445,5 +441,17 @@ body {
 
     .login-form{
         width: 80%;
+    }
+
+    .task{
+        width: 85%;
+    }
+
+    .buttons-container{
+        width: 60%;
+    }
+
+    #idea{
+        margin-left: 3.5%;
     }
 }
