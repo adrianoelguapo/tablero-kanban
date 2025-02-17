@@ -184,7 +184,7 @@ body {
 
 .kanban-container {
     display: flex;
-    width: 95%;
+    min-width: 95%;
     gap: 2%;
     justify-content: center;
     margin-bottom: 2%;
@@ -407,6 +407,43 @@ body {
     display: inline-block;
     margin: 10px 5px 10px 0;
 }
+
 #add-task-form button:hover {
     transform: scale(1.05);
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .kanban-container {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .kanban-column {
+        width: 48%;
+        flex: 0 0 auto;
+        margin-right: 2%;
+    }
+
+    .login-form{
+        width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .kanban-container {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .kanban-column {
+        width: 90%;
+        flex: 0 0 auto;
+        margin-right: 5%;
+    }
+
+    .login-form{
+        width: 80%;
+    }
 }
